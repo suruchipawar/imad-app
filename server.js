@@ -1,6 +1,26 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
+var articles={
+    article_one:{title:'article_one',heading:{article_one},content:`This is my first article.This is my first article.This is my first article.`},
+      article_two:{title:'article_two',heading:{article_two},content:`This is my second article.This is my second article.This is my first article.`}
+    
+};
+function create_temp(data)
+{
+    var title=data.title;
+    var content=data.content;
+    var html_template=`
+    <html>
+    <head><title>${title}</title></head>
+    <body background='grey'>
+    ${content}
+    </body>
+    </html>
+        `;
+        return html_template;
+}
+
 
 var app = express();
 app.use(morgan('combined'));
@@ -18,7 +38,7 @@ app.get('/ui/madi.png', function (req, res) {
 });
 
 app.get('/ui/article-1', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui','article-1.html'));
+  res.send(create_temp(article_one));
 });
 
 
